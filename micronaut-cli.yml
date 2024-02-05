@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: mn.ser.security
+testFramework: spock
+sourceLanguage: groovy
+buildTool: gradle
+features: [app-name, gradle, groovy, groovy-application, http-client-test, jackson-databind, logback, micronaut-aot, micronaut-build, micronaut-http-validation, netty-server, properties, readme, security, security-annotations, security-jwt, shade, spock]
