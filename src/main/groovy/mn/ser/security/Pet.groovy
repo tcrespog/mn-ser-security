@@ -28,7 +28,7 @@ class Pet {
     }
 
     /**
-     * Ignored on serialization when the method is not called {@code getName}.
+     * Ignored on serialization when the method is not called {@code getType}.
      */
     @JsonGetter('type')
     String serializeType() {
