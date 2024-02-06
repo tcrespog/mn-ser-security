@@ -1,11 +1,12 @@
 package mn.ser.security
 
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 
-import groovy.transform.CompileStatic
 import io.micronaut.http.HttpMethod
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
@@ -27,6 +28,41 @@ class MyControllerTest extends Specification {
 
         expect:
         loginResp
+    }
+
+    void 'send a pet'() {
+        when: 'send pets with the correct format'
+        def pets = [
+            pets: [
+                    [name: 'Rex', type: 'dog'],
+                    [name: 'Laika', type: 'dog'],
+            ]
+        ]
+        def req = HttpRequest.POST('/pet', pets)
+        def res = client.toBlocking().exchange(req, Map)
+
+        then: 'the response is OK'
+        res.status() == HttpStatus.OK
+        res.body().pets.first().name == 'Rex'
+        res.body().pets.first().type == 'DOG'
+    }
+
+    @IgnoreRest
+    void 'send a pet malformed'() {
+        when: 'send pets, one of them with a malformed name'
+        def pets = [
+                pets: [
+                        [name: ['Rex'], type: 'dog'],
+                        [name: 'Laika', type: 'dog'],
+                ]
+        ]
+        def req = HttpRequest.POST('/pet', pets)
+        def res = client.toBlocking().exchange(req, Map)
+
+        then: 'the response is OK'
+        res.status() == HttpStatus.OK
+        res.body().pets.first().name == null
+        res.body().pets.first().type == 'DOG'
     }
 
     private AccessRefreshToken doJwtLogin() {

@@ -7,7 +7,7 @@ import io.micronaut.security.authentication.AuthenticationFailureReason
 import io.micronaut.security.authentication.AuthenticationProvider
 import io.micronaut.security.authentication.AuthenticationRequest
 import io.micronaut.security.authentication.AuthenticationResponse
-import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.Flowable
 import jakarta.inject.Singleton
 import org.reactivestreams.Publisher
 

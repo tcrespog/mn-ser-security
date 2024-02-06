@@ -1,8 +1,6 @@
 plugins {
-    id("groovy") 
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.2.1"
-    id("io.micronaut.aot") version "4.2.1"
+    id("groovy")
+    id("application")
 }
 
 version = "0.1"
@@ -13,20 +11,30 @@ repositories {
 }
 
 dependencies {
+    implementation platform("io.micronaut.platform:micronaut-platform:$micronautVersion")
+    implementation "io.micronaut:micronaut-http-server-netty"
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.groovy:micronaut-runtime-groovy")
     implementation("io.micronaut.security:micronaut-security")
     implementation("io.micronaut.security:micronaut-security-jwt")
-    implementation("io.micronaut.rxjava3:micronaut-rxjava3")
+    implementation("io.micronaut.rxjava2:micronaut-rxjava2")
+    implementation 'io.micronaut.rxjava2:micronaut-rxjava2-http-client'
+
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly("io.micronaut:micronaut-http-validation")
     compileOnly("io.micronaut.security:micronaut-security-annotations")
+    compileOnly "io.micronaut:micronaut-inject-groovy"
+
     runtimeOnly("ch.qos.logback:logback-classic")
+
+    testImplementation "io.micronaut.test:micronaut-test-spock"
     testImplementation("io.micronaut:micronaut-http-client")
-    aotPlugins platform("io.micronaut.platform:micronaut-platform:4.2.3")
-    aotPlugins("io.micronaut.security:micronaut-security-aot")
+    testCompileOnly "io.micronaut:micronaut-inject-groovy"
 }
 
+test {
+    useJUnitPlatform()
+}
 
 application {
     mainClass.set("mn.ser.security.Application")
@@ -35,29 +43,5 @@ java {
     sourceCompatibility = JavaVersion.toVersion("17")
     targetCompatibility = JavaVersion.toVersion("17")
 }
-
-
-graalvmNative.toolchainDetection = false
-micronaut {
-    runtime("netty")
-    testRuntime("spock2")
-    processing {
-        incremental(true)
-        annotations("mn.ser.security.*")
-    }
-    aot {
-    // Please review carefully the optimizations enabled below
-    // Check https://micronaut-projects.github.io/micronaut-aot/latest/guide/ for more details
-        optimizeServiceLoading = false
-        convertYamlToJava = false
-        precomputeOperations = true
-        cacheEnvironment = true
-        optimizeClassLoading = true
-        deduceEnvironment = true
-        optimizeNetty = true
-        configurationProperties.put("micronaut.security.jwks.enabled","false")
-    }
-}
-
 
 
