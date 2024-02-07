@@ -23,9 +23,7 @@ class MyController {
 
     @Post('/pet')
     @Secured(SecurityRule.IS_ANONYMOUS)
-    HttpResponse<PetCollection> pet(@Body PetCollection petCollection) {
-        return HttpResponse.ok(petCollection)
+    PetCollection pet(@Body PetCollection petCollection) {
+        petCollection
     }
-
-
 }
