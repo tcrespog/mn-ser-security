@@ -47,7 +47,6 @@ class MyControllerTest extends Specification {
         res.body().pets.first().type == 'DOG'
     }
 
-    @IgnoreRest
     void 'send a pet malformed'() {
         when: 'send pets, one of them with a malformed name'
         def pets = [

@@ -3,16 +3,17 @@ package mn.ser.security
 import com.fasterxml.jackson.annotation.JsonGetter
 import com.fasterxml.jackson.annotation.JsonSetter
 import groovy.transform.CompileStatic
+import groovy.transform.EqualsAndHashCode
 import groovy.util.logging.Slf4j
 import io.micronaut.core.annotation.Introspected
 
 @Slf4j
 @CompileStatic
-@Introspected
+@Introspected(accessKind = Introspected.AccessKind.FIELD)
+@EqualsAndHashCode
 class Pet {
-
-    String name
-    String type
+    private String name
+    private String type
 
     /**
      * Ignored on deserialization when the method is not called {@code setName}.
@@ -35,8 +36,24 @@ class Pet {
         if (type == 'dog') {
             return type.toUpperCase()
         }
-
         return type
     }
 
+    void setName(String name) {
+        this.name = name
+    }
+
+    void setType(String type) {
+        this.type = type
+    }
+
+
+    String getName() {
+        return name
+    }
+
+    String getType() {
+        return type
+    }
 }
+
