@@ -9,11 +9,11 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 
-@Controller('/')
+@Controller
 @CompileStatic
 class MyController {
 
-    @Get('/')
+    @Get
     @Secured(SecurityRule.IS_AUTHENTICATED)
     HttpResponse ping() {
         return HttpResponse.ok()
