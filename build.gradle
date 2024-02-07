@@ -17,16 +17,11 @@ dependencies {
     implementation("io.micronaut.groovy:micronaut-runtime-groovy")
     implementation("io.micronaut.security:micronaut-security")
     implementation("io.micronaut.security:micronaut-security-jwt")
-    implementation("io.micronaut.rxjava2:micronaut-rxjava2")
-    implementation 'io.micronaut.rxjava2:micronaut-rxjava2-http-client'
-
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly("io.micronaut:micronaut-http-validation")
     compileOnly("io.micronaut.security:micronaut-security-annotations")
     compileOnly "io.micronaut:micronaut-inject-groovy"
-
     runtimeOnly("ch.qos.logback:logback-classic")
-
     testImplementation "io.micronaut.test:micronaut-test-spock"
     testImplementation("io.micronaut:micronaut-http-client")
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
