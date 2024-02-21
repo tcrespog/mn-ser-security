@@ -1,7 +1,5 @@
 package mn.ser.security
 
-import java.net.http.HttpRequest
-
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import io.micronaut.http.HttpResponse
